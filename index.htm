@@ -328,7 +328,7 @@
 <body class="light-theme">
 
     <header class="header">
-        <img src="Logo 2.png" alt="Logo Young Empreendimentos" class="logo" id="logo-image">
+        <img src="logo-young-dark.png" alt="Logo Young Empreendimentos" class="logo" id="logo-image">
         <div class="theme-switcher">
             <input type="checkbox" id="theme-toggle" class="theme-toggle">
             <label for="theme-toggle" class="toggle-label"></label>
@@ -459,19 +459,19 @@
             const body = document.body;
             const logo = document.getElementById('logo-image');
             
-            // Assume logo-young-light.png and logo-young-dark.png exist in the same folder
-            const logoLightUrl = 'https://placehold.co/200x50/121212/FFFFFF?text=Young&font=spacegrotesk'; // Placeholder for dark text logo
-            const logoDarkUrl = 'https://placehold.co/200x50/FFFFFF/121212?text=Young&font=spacegrotesk';   // Placeholder for light text logo
+            // Defina os nomes dos seus arquivos de logo aqui
+            const logoForLightTheme = 'Logo 2.png'; // Logo para fundo claro
+            const logoForDarkTheme = 'Logo 2.png';  // Logo para fundo escuro
 
             function setTheme(isDark) {
                 if (isDark) {
                     body.classList.add('dark-theme');
                     body.classList.remove('light-theme');
-                    logo.src = logoDarkUrl;
+                    logo.src = logoForDarkTheme;
                 } else {
                     body.classList.remove('dark-theme');
                     body.classList.add('light-theme');
-                    logo.src = logoLightUrl;
+                    logo.src = logoForLightTheme;
                 }
             }
 
@@ -487,5 +487,4 @@
     </script>
 </body>
 </html>
-
 
