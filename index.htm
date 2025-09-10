@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Prático: Como Resolver Problemas com Inteligência e Método</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* * =============================================
+         * CSS Variables for Theming (Light & Dark Mode)
+         * =============================================
+         */
+        :root {
+            --primary-color: #fe5009;
+            --secondary-color: #00bcbc;
+            --background-color: #FFFFFF;
+            --text-color: #1A1A1A;
+            --table-header-bg: #f2f2f2;
+            --table-border-color: #e0e0e0;
+            --hr-color: #e0e0e0;
+            --card-bg: #f9f9f9;
+        }
+
+        .dark-theme {
+            --background-color: #121212;
+            --text-color: #EAEAEA;
+            --table-header-bg: #1f1f1f;
+            --table-border-color: #333333;
+            --hr-color: #333333;
+            --card-bg: #1e1e1e;
+        }
+
+        /* * =============================================
+         * General Body & Typography Styles
+         * =============================================
+         */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: background-color 0.3s, color 0.3s;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--secondary-color);
+            margin-top: 3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--hr-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        strong {
+            font-weight: 700;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background-color: var(--hr-color);
+            margin: 3rem 0;
+        }
+
+        /* * =============================================
+         * Header & Theme Switcher
+         * =============================================
+         */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--hr-color);
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .theme-switcher {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .toggle-label {
+            width: 50px;
+            height: 26px;
+            background-color: #ccc;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-label::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            background: white;
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:checked + .toggle-label {
+            background-color: var(--primary-color);
+        }
+
+        .theme-toggle:checked + .toggle-label::after {
+            transform: translateX(24px);
+        }
+
+        /* * =============================================
+         * Content Specific Styles (Table, Cards, etc.)
+         * =============================================
+         */
+        .problem-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .problem-table th, .problem-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--table-border-color);
+        }
+
+        .problem-table th {
+            background-color: var(--table-header-bg);
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .problem-table td:first-child {
+            font-weight: 700;
+            color: var(--secondary-color);
+            width: 25%;
+        }
+
+        .practical-tip, .reflection-box {
+            background-color: var(--card-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .practical-tip p:last-child, .reflection-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-by-step-list, .application-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-by-step-list li, .application-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-by-step-list li::before, .application-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        .five-whys {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            counter-reset: why-counter;
+        }
+
+        .five-whys p {
+            position: relative;
+            padding-left: 8rem; /* Aumentado para evitar sobreposição */
+            margin-bottom: 0.75rem;
+        }
+        
+        .five-whys p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .five-whys p::before {
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .five-whys p:first-of-type::before {
+            content: 'Problema:';
+            color: var(--primary-color);
+        }
+
+        .five-whys p:not(:first-of-type):not(.cause)::before {
+            counter-increment: why-counter;
+            content: counter(why-counter) ". Por quê?";
+            color: var(--secondary-color);
+        }
+        
+        .five-whys .cause {
+             border-top: 1px solid var(--hr-color);
+             padding-top: 1.5rem;
+             margin-top: 1.5rem;
+        }
+
+        .five-whys .cause::before {
+             content: 'Causa raiz:';
+             color: var(--primary-color);
+        }
+
+
+        /* * =============================================
+         * Responsive Design
+         * =============================================
+         */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .container, .header {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container, .header {
+                padding: 1rem;
+            }
+            .logo {
+                height: 30px;
+            }
+             .problem-table, .problem-table tbody, .problem-table tr, .problem-table td {
+                display: block;
+                width: 100%;
+            }
+             .problem-table thead {
+                display: none;
+            }
+             .problem-table tr {
+                margin-bottom: 1rem;
+                border: 1px solid var(--table-border-color);
+                 border-radius: 8px;
+                 overflow: hidden;
+            }
+             .problem-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: none;
+                border-bottom: 1px solid var(--table-border-color);
+                padding: 0.5rem 1rem;
+            }
+             .problem-table td:last-child{
+                 border-bottom: none;
+             }
+             .problem-table td:before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--primary-color);
+                padding-right: 1rem;
+            }
+            .problem-table td:first-child {
+                background-color: var(--table-header-bg);
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .problem-table td:first-child::before {
+                content: '';
+                 padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+
+    <header class="header">
+        <img src="https://placehold.co/200x50/121212/FFFFFF?text=Young&font=spacegrotesk" alt="Logo Young Empreendimentos" class="logo" id="logo-image">
+        <div class="theme-switcher">
+            <input type="checkbox" id="theme-toggle" class="theme-toggle">
+            <label for="theme-toggle" class="toggle-label"></label>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Guia Prático: Como Resolver Problemas com Inteligência e Método</h1>
+        
+        <p>Problemas mal resolvidos geram retrabalho, clima ruim e prejuízo. Já uma liderança que sabe diagnosticar causas, analisar cenários e propor soluções estruturadas se torna um diferencial dentro da empresa. Esse guia te entrega duas ferramentas poderosas: <strong>5W2H</strong> e <strong>5 Porquês</strong>.</p>
+        
+        <hr>
+
+        <h2>📌 Método 1: 5W2H – Entendendo o problema em 360°</h2>
+        <p>Um problema mal definido nunca será bem resolvido. A ferramenta 5W2H te ajuda a mapear o problema com clareza, organizando as informações antes de partir para a solução.</p>
+
+        <table class="problem-table">
+            <thead>
+                <tr>
+                    <th>Elemento</th>
+                    <th>Pergunta-chave</th>
+                    <th>Exemplo aplicado em liderança</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Elemento">Who (Quem?)</td>
+                    <td data-label="Pergunta-chave">Quem está envolvido?</td>
+                    <td data-label="Exemplo">Equipe do atendimento, gestor de vendas, cliente insatisfeito</td>
+                </tr>
+                <tr>
+                    <td data-label="Elemento">What (O quê?)</td>
+                    <td data-label="Pergunta-chave">O que está acontecendo?</td>
+                    <td data-label="Exemplo">Reclamações frequentes sobre atrasos</td>
+                </tr>
+                <tr>
+                    <td data-label="Elemento">When (Quando?)</td>
+                    <td data-label="Pergunta-chave">Quando acontece?</td>
+                    <td data-label="Exemplo">Principalmente nas entregas de sexta-feira</td>
+                </tr>
+                <tr>
+                    <td data-label="Elemento">Where (Onde?)</td>
+                    <td data-label="Pergunta-chave">Onde isso ocorre?</td>
+                    <td data-label="Exemplo">Na interface entre pedidos e expedição</td>
+                </tr>
+                <tr>
+                    <td data-label="Elemento">Why (Por quê?)</td>
+                    <td data-label="Pergunta-chave">Por que está acontecendo?</td>
+                    <td data-label="Exemplo">Comunicação falha entre setores</td>
+                </tr>
+                <tr>
+                    <td data-label="Elemento">How (Como?)</td>
+                    <td data-label="Pergunta-chave">Como o problema ocorre?</td>
+                    <td data-label="Exemplo">Informações dos pedidos chegam incompletas</td>
+                </tr>
+                <tr>
+                    <td data-label="Elemento">How much (Quanto?)</td>
+                    <td data-label="Pergunta-chave">Qual o impacto?</td>
+                    <td data-label="Exemplo">Perda de 10% das vendas semanais</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="practical-tip">
+            <p><strong>✍ Dica prática:</strong> Use esse mapeamento em uma reunião de resolução de problemas com a equipe. Preencha junto o quadro 5W2H no papel ou no quadro branco.</p>
+        </div>
+
+        <hr>
+
+        <h2>🔍 Método 2: 5 Porquês – Chegando à causa raiz</h2>
+        <p>Toda solução eficaz parte de um bom diagnóstico. A técnica dos 5 Porquês busca a origem real do problema – e não apenas seus sintomas.</p>
+        <p><strong>Como aplicar:</strong></p>
+        <ol class="step-by-step-list" style="list-style-type: decimal; padding-left: 20px;">
+            <li>Descreva o problema principal</li>
+            <li>Pergunte “Por quê?” em sequência, até chegar à causa raiz (normalmente em 5 perguntas, mas pode variar)</li>
+            <li>Evite respostas superficiais. Vá além das aparências.</li>
+        </ol>
+
+        <div class="five-whys">
+            <p>A equipe está constantemente atrasando as entregas.</p>
+            <p>Porque não há organização nas tarefas.</p>
+            <p>Porque ninguém define as prioridades do dia.</p>
+            <p>Porque o gestor não realiza reuniões de alinhamento.</p>
+            <p>Porque está sobrecarregado e sem rotina de gestão.</p>
+            <p>Porque não delegou tarefas e centralizou tudo.</p>
+            <p class="cause"><strong>Falta de rotina de alinhamento + centralização do líder.</strong></p>
+        </div>
+        <p><strong>✅ Solução possível:</strong> Implantar reunião diária de prioridades e plano de delegação semanal.</p>
+
+        <hr>
+        
+        <h2>🧩 Como usar na prática: passo a passo completo</h2>
+        <ol class="step-by-step-list" style="list-style-type: decimal; padding-left: 20px;">
+            <li><strong>Surgiu um problema →</strong> Use o 5W2H para entender a situação com clareza.</li>
+            <li><strong>Quer resolver de forma estruturada →</strong> Use os 5 Porquês para chegar à causa raiz.</li>
+            <li><strong>Hora de agir →</strong> Monte um plano com:
+                <ul class="application-list" style="margin-top: 0.5rem;">
+                    <li>O que fazer</li>
+                    <li>Quem fará</li>
+                    <li>Quando será feito</li>
+                    <li>Quais recursos serão necessários</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <hr>
+
+        <h2>📘 Aplicação prática para sua equipe</h2>
+        <p>Você é líder. E o líder precisa aprender a pensar como um solucionador de problemas.</p>
+        <ul class="application-list">
+            <li>Tenha um modelo impresso ou digital com o 5W2H e os 5 Porquês.</li>
+            <li>Incentive sua equipe a usar essas ferramentas em reuniões de retrabalho, falhas ou conflitos.</li>
+            <li>Crie o hábito de refletir antes de agir: entender primeiro, resolver depois.</li>
+        </ul>
+        
+        <hr>
+
+        <div class="reflection-box">
+             <p><strong>💡 Reflexão final:</strong></p>
+            <p style="font-style: italic;">“Não é o problema que derruba uma equipe. É a forma como ele é tratado.”</p>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const logo = document.getElementById('logo-image');
+            
+            // Assume logo-young-light.png and logo-young-dark.png exist in the same folder
+            const logoLightUrl = 'https://placehold.co/200x50/121212/FFFFFF?text=Young&font=spacegrotesk'; // Placeholder for dark text logo
+            const logoDarkUrl = 'https://placehold.co/200x50/FFFFFF/121212?text=Young&font=spacegrotesk';   // Placeholder for light text logo
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    body.classList.add('dark-theme');
+                    body.classList.remove('light-theme');
+                    logo.src = logoDarkUrl;
+                } else {
+                    body.classList.remove('dark-theme');
+                    body.classList.add('light-theme');
+                    logo.src = logoLightUrl;
+                }
+            }
+
+            themeToggle.addEventListener('change', () => {
+                setTheme(themeToggle.checked);
+            });
+
+            // Optional: Set initial theme based on user's system preference
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            themeToggle.checked = prefersDark;
+            setTheme(prefersDark);
+        });
+    </script>
+</body>
+</html>
+
